@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\VarDumper;
 
 /**
  * This is the model class for table "user".
@@ -20,7 +21,7 @@ use Yii;
  * @property Query[] $queries
  * @property Role $roleType
  */
-class User extends \yii\db\ActiveRecord
+class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
     /**
      * {@inheritdoc}
@@ -83,5 +84,41 @@ class User extends \yii\db\ActiveRecord
     public function getRoleType()
     {
         return $this->hasOne(Role::class, ['role_id' => 'role_type_id']);
+	}
+
+	public function findByUsername($username)
+	{
+		$user = User::find()->where(['loginname'=>$username])->one();
+		return $user;
+	}
+
+    public function validatePassword($password)
+    {
+        return $this->password === $password;
+	}
+
+	 public static function findIdentity($id)
+    {
+        return static::findOne($id);
+    }
+
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        return static::findOne(['access_token' => $token]);
+    }
+
+    public function getId()
+    {
+        return $this->user_id;
+    }
+
+    public function getAuthKey()
+    {
+        return $this->password;
+    }
+
+    public function validateAuthKey($authKey)
+    {
+        return $this->password === $authKey;
     }
 }

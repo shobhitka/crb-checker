@@ -10,7 +10,14 @@ $this->title = 'CRB Checker';
 
     <div class="jumbotron text-center bg-transparent">
 		<h1 class="display-8">Welcome to the CRB Checker Applicatioon.</h1>
-		<?= Html::a('Login to the Application', ['/site/login'], ['class'=>'btn btn-lg btn-success']) ?>
+		<?php
+			if (Yii::$app->user->isGuest)
+				$button_lbl = "Login to the Application";
+			else
+				$button_lbl = "Start a new CRB Query";
+
+			echo Html::a($button_lbl, ['/site/login'], ['class'=>'btn btn-lg btn-success']);
+		?>
     </div>
 
 	<div class="body-content">
