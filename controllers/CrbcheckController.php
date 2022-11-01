@@ -1,7 +1,7 @@
 <?php
 
 namespace app\controllers;
-
+use Yii;
 use app\models\CrbCheck;
 use app\models\CrbCheckSearch;
 use yii\web\Controller;
@@ -40,6 +40,7 @@ class CrbcheckController extends Controller
     {
         $searchModel = new CrbCheckSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
+        $dataProvider->query->andWhere(['user_user_id'=>Yii::$app->user->identity->getId()]);
 
         return $this->render('index', [
             'searchModel' => $searchModel,

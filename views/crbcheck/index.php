@@ -10,7 +10,7 @@ use yii\grid\GridView;
 /** @var app\models\CrbCheckSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Crb Checks';
+$this->title = 'CRB Queries';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="crb-check-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Crb Check', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('New CRB Check', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

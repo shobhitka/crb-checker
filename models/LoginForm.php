@@ -45,7 +45,6 @@ class LoginForm extends Model
      */
     public function validatePassword($attribute, $params)
 	{
-		Yii::error("TUX: validatePassword");
         if (!$this->hasErrors()) {
 			$user = $this->getUser();
 
