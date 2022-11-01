@@ -2,6 +2,9 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\QueryType;
+use kartik\date\DatePicker;
+
 
 /** @var yii\web\View $this */
 /** @var app\models\CrbCheck $model */
@@ -12,27 +15,63 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'search_firstname')->textInput(['maxlength' => true]) ?>
+    <div class="row">
+    <div class='col-md-3'>
+        <?= $form->field($model, 'search_firstname')->textInput(['maxlength' => true]) ?>
+    </div>
+    <div class='col-md-3'>
+        <?= $form->field($model, 'search_middlename')->textInput(['maxlength' => true]) ?>
+    </div>
 
-    <?= $form->field($model, 'search_middlename')->textInput(['maxlength' => true]) ?>
-
+    <div class='col-md-3'>
     <?= $form->field($model, 'search_lastname')->textInput(['maxlength' => true]) ?>
+    </div>
+    </div>
+    <br><br>
+    <div class="row">
+    <div class='col-md-3'>
+    
+    <?= $form->field($model, 'start_date')->widget(DatePicker::classname(), [
+    'options' => ['placeholder' => 'Enter start date ...'],
+    'type' => DatePicker::TYPE_INPUT,
+    'pluginOptions' => [
+        'autoclose' => true,
+        'format' => 'yyyy-mm-dd'
+    ]]) ?>
 
-    <?= $form->field($model, 'start_date')->textInput() ?>
-
-    <?= $form->field($model, 'end_date')->textInput() ?>
-
-    <?= $form->field($model, 'dob')->textInput() ?>
-
+    </div>
+    <div class='col-md-3'>
+    <?= $form->field($model, 'end_date')->widget(DatePicker::classname(), [
+    'options' => ['placeholder' => 'Enter end date ...'],
+    'type' => DatePicker::TYPE_INPUT,
+    'pluginOptions' => [
+        'autoclose' => true,
+        'format' => 'yyyy-mm-dd'
+    ]]) ?>
+    </div>
+    <div class='col-md-3'>
+    <?= $form->field($model, 'dob')->widget(DatePicker::classname(), [
+    'options' => ['placeholder' => 'Enter date of birth ...'],
+    'type' => DatePicker::TYPE_INPUT,
+    'pluginOptions' => [
+        'autoclose' => true,
+        'format' => 'yyyy-mm-dd'
+    ]]) ?>
+    </div>
+    </div>
+    <br><br>
+    <div class="row">
+    <div class='col-md-3'>
     <?= $form->field($model, 'search_city')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'search_timestamp')->textInput() ?>
-
-    <?= $form->field($model, 'query_type_id')->textInput() ?>
-
-    <?= $form->field($model, 'user_user_id')->textInput() ?>
+    </div>
+    
+    <div class='col-md-3'>
+    <?= $form->field($model, 'query_type_id')->dropDownList(QueryType::getQueryArrayMap()) ?>
+    </div>
+    </div>
 
     <div class="form-group">
+        <br>
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 

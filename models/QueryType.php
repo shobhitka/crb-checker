@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "query_type".
@@ -55,5 +56,18 @@ class QueryType extends \yii\db\ActiveRecord
     public function getQueries()
     {
         return $this->hasMany(Query::class, ['query_type_id' => 'type_id']);
+    }
+
+    public function getQueryArrayMap()
+    {
+        $model = QueryType::find()->all();
+        $types = array();
+        return ArrayHelper::map($model, 'type_id', 'type_name');
+    }
+
+    public function getQueryName($type_id)
+    {
+        $model = QueryType::findone($type_id);
+        return $model->type_name;
     }
 }

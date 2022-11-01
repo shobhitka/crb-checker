@@ -41,7 +41,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'Settings', 'url' => ['/role'], 'visible' => !Yii::$app->user->isGuest && Yii::$app->user->identity->isAdmin()],
-            ['label' => 'New CRB Query', 'url' => ['/crbcheck/index'], 'visible' => !Yii::$app->user->isGuest],
+            ['label' => 'CRB Queries', 'url' => ['/crbcheck/index'], 'visible' => !Yii::$app->user->isGuest],
             Yii::$app->user->isGuest
                 ? ['label' => 'Login', 'url' => ['/site/login']]
                 : '<li class="nav-item">'

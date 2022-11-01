@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\models\QueryType;
 
 /** @var yii\web\View $this */
 /** @var app\models\CrbCheck $model */
@@ -38,8 +39,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'dob',
             'search_city',
             'search_timestamp',
-            'query_type_id',
-            'user_user_id',
+            [
+                'label' => 'Query Type',
+                'value' => QueryType::getQueryName($model->query_type_id),
+            ],
         ],
     ]) ?>
 

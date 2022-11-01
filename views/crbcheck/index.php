@@ -29,15 +29,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'quiery_id',
+            //'quiery_id',
             'search_firstname',
             'search_middlename',
             'search_lastname',
-            'start_date',
             //'end_date',
             //'dob',
             //'search_city',
-            //'search_timestamp',
+            'search_timestamp',
             //'query_type_id',
             //'user_user_id',
             [

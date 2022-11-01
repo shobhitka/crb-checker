@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /** @var yii\web\View $this */
 /** @var app\models\CrbCheck $model */
 
-$this->title = 'Create Crb Check';
+$this->title = 'New CRB Check Query';
 $this->params['breadcrumbs'][] = ['label' => 'Crb Checks', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

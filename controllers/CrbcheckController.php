@@ -7,6 +7,7 @@ use app\models\CrbCheckSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\VarDumper;
 
 /**
  * CrbcheckController implements the CRUD actions for CrbCheck model.
@@ -71,10 +72,16 @@ class CrbcheckController extends Controller
     public function actionCreate()
     {
         $model = new CrbCheck();
-
+        Yii::error("1");
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'quiery_id' => $model->quiery_id, 'query_type_id' => $model->query_type_id, 'user_user_id' => $model->user_user_id]);
+            if ($model->load($this->request->post())) {
+                $model->user_user_id = Yii::$app->user->identity->getId();
+                $model->search_timestamp = date("Y-m-d H:i:s");
+                if ($model->save()) {
+                    return $this->redirect(['view', 'quiery_id' => $model->quiery_id, 'query_type_id' => $model->query_type_id, 'user_user_id' => $model->user_user_id]);
+                } else {
+                    VarDumper::dump($model);
+                }
             }
         } else {
             $model->loadDefaultValues();
