@@ -19,6 +19,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'offense_desc')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
+        <br>
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 

@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var app\models\Offenses $model */
 
-$this->title = $model->offense_id;
+$this->title = $model->offense_name;
 $this->params['breadcrumbs'][] = ['label' => 'Offenses', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -31,7 +31,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'offense_id',
             'offense_name',
-            'offense_type',
             'offense_desc',
         ],
     ]) ?>

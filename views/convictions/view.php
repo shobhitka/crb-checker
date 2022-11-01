@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var app\models\Convictions $model */
 
-$this->title = $model->conviction_id;
+$this->title = $model->conviction_name;
 $this->params['breadcrumbs'][] = ['label' => 'Convictions', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -30,7 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'conviction_id',
-            'conviction_type',
             'conviction_name',
             'conviction_desc',
         ],

@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var app\models\QueryType $model */
 
-$this->title = $model->type_id;
+$this->title = $model->type_name;
 $this->params['breadcrumbs'][] = ['label' => 'Query Types', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
