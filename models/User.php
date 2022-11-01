@@ -121,4 +121,12 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     {
         return $this->password === $authKey;
     }
+
+    public function isAdmin()
+    {
+        if ($this->role_type_id == 1)
+            return TRUE;
+        else
+            return FALSE;
+    }
 }

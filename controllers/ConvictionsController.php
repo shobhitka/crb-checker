@@ -38,6 +38,7 @@ class ConvictionsController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = "sidenav";
         $searchModel = new ConvictionsSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -55,6 +56,7 @@ class ConvictionsController extends Controller
      */
     public function actionView($conviction_id)
     {
+        $this->layout = "sidenav";
         return $this->render('view', [
             'model' => $this->findModel($conviction_id),
         ]);
@@ -67,6 +69,7 @@ class ConvictionsController extends Controller
      */
     public function actionCreate()
     {
+        $this->layout = "sidenav";
         $model = new Convictions();
 
         if ($this->request->isPost) {
@@ -91,6 +94,7 @@ class ConvictionsController extends Controller
      */
     public function actionUpdate($conviction_id)
     {
+        $this->layout = "sidenav";
         $model = $this->findModel($conviction_id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
@@ -111,6 +115,7 @@ class ConvictionsController extends Controller
      */
     public function actionDelete($conviction_id)
     {
+        $this->layout = "sidenav";
         $this->findModel($conviction_id)->delete();
 
         return $this->redirect(['index']);

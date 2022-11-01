@@ -38,6 +38,7 @@ class OffensesController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = "sidenav";
         $searchModel = new OffensesSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -55,6 +56,7 @@ class OffensesController extends Controller
      */
     public function actionView($offense_id)
     {
+        $this->layout = "sidenav";
         return $this->render('view', [
             'model' => $this->findModel($offense_id),
         ]);
@@ -67,6 +69,7 @@ class OffensesController extends Controller
      */
     public function actionCreate()
     {
+        $this->layout = "sidenav";
         $model = new Offenses();
 
         if ($this->request->isPost) {
@@ -91,6 +94,7 @@ class OffensesController extends Controller
      */
     public function actionUpdate($offense_id)
     {
+        $this->layout = "sidenav";
         $model = $this->findModel($offense_id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
@@ -111,6 +115,7 @@ class OffensesController extends Controller
      */
     public function actionDelete($offense_id)
     {
+        $this->layout = "sidenav";
         $this->findModel($offense_id)->delete();
 
         return $this->redirect(['index']);

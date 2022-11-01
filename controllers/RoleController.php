@@ -38,6 +38,7 @@ class RoleController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = "sidenav";
         $searchModel = new RoleSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -55,6 +56,7 @@ class RoleController extends Controller
      */
     public function actionView($role_id)
     {
+        $this->layout = "sidenav";
         return $this->render('view', [
             'model' => $this->findModel($role_id),
         ]);
@@ -67,6 +69,7 @@ class RoleController extends Controller
      */
     public function actionCreate()
     {
+        $this->layout = "sidenav";
         $model = new Role();
 
         if ($this->request->isPost) {
@@ -91,6 +94,7 @@ class RoleController extends Controller
      */
     public function actionUpdate($role_id)
     {
+        $this->layout = "sidenav";
         $model = $this->findModel($role_id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
@@ -111,6 +115,7 @@ class RoleController extends Controller
      */
     public function actionDelete($role_id)
     {
+        $this->layout = "sidenav";
         $this->findModel($role_id)->delete();
 
         return $this->redirect(['index']);
