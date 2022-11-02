@@ -1,6 +1,7 @@
 <?php
 
 namespace app\models;
+use yii\helpers\ArrayHelper;
 
 use Yii;
 
@@ -67,5 +68,12 @@ class Convictions extends \yii\db\ActiveRecord
     public static function find()
     {
         return new ConvictionsQuery(get_called_class());
+    }
+
+    public function getConvictionsArrayMap()
+    {
+        $model = Convictions::find()->all();
+        $types = array();
+        return ArrayHelper::map($model, 'conviction_id', 'conviction_name');
     }
 }

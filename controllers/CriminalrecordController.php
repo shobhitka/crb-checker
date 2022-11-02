@@ -7,6 +7,8 @@ use app\models\CriminalRecordSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Registry;
+use app\models\Address;
 
 /**
  * CriminalrecordController implements the CRUD actions for CriminalRecord model.
@@ -74,6 +76,8 @@ class CriminalrecordController extends Controller
     {
         $this->layout = "sidenav";
         $model = new CriminalRecord();
+        $registry = new Registry();
+        $address = new Address();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -85,6 +89,8 @@ class CriminalrecordController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'registry' => $registry,
+            'address' => $address,
         ]);
     }
 
