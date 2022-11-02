@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\AddressSearch;
+use yii;
 
 /**
  * RegistryController implements the CRUD actions for Registry model.
@@ -39,7 +40,8 @@ class RegistryController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout = "sidenav";
+        if (Yii::$app->user->identity->isAdmin())
+            $this->layout = "sidenav";
         $searchModel = new RegistrySearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -57,7 +59,8 @@ class RegistryController extends Controller
      */
     public function actionView($person_id, $record_id)
     {
-        $this->layout = "sidenav";
+        if (Yii::$app->user->identity->isAdmin())
+        if (Yii::$app->user->identity->isAdmin())$this->layout = "sidenav";
         $record_id = 2;
 
         $searchModel = new AddressSearch();

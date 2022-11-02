@@ -25,6 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
+        <?php if (Yii::$app->user->identity->isAdmin()) { ?>
         <?= Html::a('Update', ['update', 'person_id' => $model->person_id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'person_id' => $model->person_id], [
             'class' => 'btn btn-danger',
@@ -33,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?php } ?>
     </p>
 
     <?= DetailView::widget([
@@ -79,6 +81,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
+    <?php if (Yii::$app->user->identity->isAdmin()) { ?>
     <?= Html::a('Add Address', ['address/create', 'address_person_id' => $model->person_id], ['class' => 'btn btn-primary']) ?>
-
+    <?php } ?>
 </div>

@@ -7,6 +7,7 @@ use app\models\AddressSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii;
 
 /**
  * AddressController implements the CRUD actions for Address model.
@@ -38,7 +39,8 @@ class AddressController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout = "sidenav";
+        if (Yii::$app->user->identity->isAdmin())
+            $this->layout = "sidenav";
         $searchModel = new AddressSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -57,7 +59,8 @@ class AddressController extends Controller
      */
     public function actionView($address_id, $address_person_id)
     {
-        $this->layout = "sidenav";
+        if (Yii::$app->user->identity->isAdmin())
+            $this->layout = "sidenav";
         return $this->render('view', [
             'model' => $this->findModel($address_id, $address_person_id),
         ]);

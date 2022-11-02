@@ -58,6 +58,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'conviction_date',
             [
                 'class' => ActionColumn::className(),
+                'template'=>'{view}',
+                'urlCreator' => function ($action, $model, $key, $index) {
+                    if ($action === 'view') {
+                        $url = \yii\helpers\Url::toRoute(['criminalrecord/view', 'record_id' => $model->record_id]);
+                        return $url;
+                    }
+                },
             ],
         ],
     ]); ?>

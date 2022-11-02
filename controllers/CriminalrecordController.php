@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\Registry;
 use app\models\Address;
 use yii\helpers\VarDumper;
+use yii;
 
 /**
  * CriminalrecordController implements the CRUD actions for CriminalRecord model.
@@ -41,7 +42,8 @@ class CriminalrecordController extends Controller
      */
     public function actionIndex()
     {
-        $this->layout = "sidenav";
+        if (Yii::$app->user->identity->isAdmin())
+            $this->layout = "sidenav";
         $searchModel = new CriminalRecordSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -62,7 +64,8 @@ class CriminalrecordController extends Controller
      */
     public function actionView($record_id)//, $record_offense_id, $record_conviction_id, $record_person_id)
     {
-        $this->layout = "sidenav";
+        if (Yii::$app->user->identity->isAdmin())
+            $this->layout = "sidenav";
         return $this->render('view', [
             'model' => CriminalRecord::find()->where(["=", 'record_id', $record_id])->one(),//'findModel($record_id, $record_offense_id, $record_conviction_id, $record_person_id),
         ]);
