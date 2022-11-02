@@ -16,6 +16,7 @@
                     'encodeLabels' => false,
                     'heading' => 'Settings',
                     'items' => [
+                        ['label' => 'Users', 'icon' => 'leaf', 'url' => Url::to(['/user/index', 'type'=>$type]), 'active' => ($item == 'plans')],
                         ['label' => 'User Roles', 'icon' => 'star', 'url' => Url::to(['/role/index', 'type'=>$type]), 'active' => ($item == 'flowers')],
                         ['label' => 'Convictions', 'icon' => 'search', 'url' => Url::to(['/convictions/index', 'type'=>$type]), 'active' => ($item == 'zones')],
                         ['label' => 'Offenses', 'icon' => 'user', 'url' => Url::to(['/offenses/index', 'type'=>$type]), 'active' => ($item == 'boys')],

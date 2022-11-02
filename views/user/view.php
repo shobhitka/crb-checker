@@ -34,10 +34,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'last_name',
             'email:email',
             'loginname',
-            'password',
             'phone',
             'company',
-            'role_type_id',
+            [
+                'attribute' => 'role_type_id',
+                'label' => 'Role',
+                'value' => function($model) {
+                    return $model->getRoleName();
+                }
+            ],
         ],
     ]) ?>
 

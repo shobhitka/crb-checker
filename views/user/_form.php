@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use app\models\Role;
 
 /** @var yii\web\View $this */
 /** @var app\models\User $model */
@@ -18,7 +19,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'loginname')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'loginname')->textInput(['maxlength' => true])->label('Login Name') ?>
 
     <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
 
@@ -26,8 +27,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'company')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'role_type_id')->textInput() ?>
+    <?= $form->field($model, 'role_type_id')->dropDownList(Role::getRolesArrayMap())->label("Role") ?>
 
+    <br>
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

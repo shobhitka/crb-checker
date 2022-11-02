@@ -38,6 +38,7 @@ class UserController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = "sidenav";
         $searchModel = new UserSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -56,6 +57,7 @@ class UserController extends Controller
      */
     public function actionView($user_id, $role_type_id)
     {
+        $this->layout = "sidenav";
         return $this->render('view', [
             'model' => $this->findModel($user_id, $role_type_id),
         ]);
@@ -68,11 +70,14 @@ class UserController extends Controller
      */
     public function actionCreate()
     {
+        $this->layout = "sidenav";
         $model = new User();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'user_id' => $model->user_id, 'role_type_id' => $model->role_type_id]);
+            if ($model->load($this->request->post())) {
+                $model->password = password_hash($model->password, PASSWORD_DEFAULT);
+                if ($model->save())
+                    return $this->redirect(['view', 'user_id' => $model->user_id, 'role_type_id' => $model->role_type_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -93,6 +98,7 @@ class UserController extends Controller
      */
     public function actionUpdate($user_id, $role_type_id)
     {
+        $this->layout = "sidenav";
         $model = $this->findModel($user_id, $role_type_id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
@@ -114,6 +120,7 @@ class UserController extends Controller
      */
     public function actionDelete($user_id, $role_type_id)
     {
+        $this->layout = "sidenav";
         $this->findModel($user_id, $role_type_id)->delete();
 
         return $this->redirect(['index']);

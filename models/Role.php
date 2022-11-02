@@ -1,6 +1,7 @@
 <?php
 
 namespace app\models;
+use yii\helpers\ArrayHelper;
 
 use Yii;
 
@@ -56,5 +57,12 @@ class Role extends \yii\db\ActiveRecord
     public function getUsers()
     {
         return $this->hasMany(User::class, ['role_type_id' => 'role_id']);
+    }
+
+    public function getRolesArrayMap()
+    {
+        $model = Role::find()->all();
+        $types = array();
+        return ArrayHelper::map($model, 'role_id', 'role_name');
     }
 }

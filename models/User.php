@@ -94,7 +94,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        return password_verify($password, $this->password);
 	}
 
 	 public static function findIdentity($id)
@@ -128,5 +128,11 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
             return TRUE;
         else
             return FALSE;
+    }
+
+    public function getRoleName()
+    {
+        $role = Role::find()->where(['=', 'role_id', $this->role_type_id])->one();
+        return $role->role_name;
     }
 }
