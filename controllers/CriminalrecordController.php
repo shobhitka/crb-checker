@@ -60,11 +60,11 @@ class CriminalrecordController extends Controller
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($record_id, $record_offense_id, $record_conviction_id, $record_person_id)
+    public function actionView($record_id)//, $record_offense_id, $record_conviction_id, $record_person_id)
     {
         $this->layout = "sidenav";
         return $this->render('view', [
-            'model' => $this->findModel($record_id, $record_offense_id, $record_conviction_id, $record_person_id),
+            'model' => CriminalRecord::find()->where(["=", 'record_id', $record_id])->one(),//'findModel($record_id, $record_offense_id, $record_conviction_id, $record_person_id),
         ]);
     }
 

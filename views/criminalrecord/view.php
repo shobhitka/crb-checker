@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
 
 /** @var yii\web\View $this */
 /** @var app\models\CriminalRecord $model */
@@ -52,8 +53,10 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'record_person_id',
                 'label' => 'Name',
+                'format' => 'raw',
                 'value' => function($model) {
-                    return $model->getCriminalName();
+                    $name = $model->getCriminalName();
+                    return Html::a($name, ['registry/view', 'person_id' => $model->record_person_id, 'record_id' => $model->record_id]);
                 }
             ],
             [

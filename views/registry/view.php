@@ -2,13 +2,22 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\grid\GridView;
+use yii\grid\ActionColumn;
+use app\models\Address;
+use yii\helpers\Url;
 
 /** @var yii\web\View $this */
 /** @var app\models\Registry $model */
 
-$this->title = $model->person_id;
-$this->params['breadcrumbs'][] = ['label' => 'Registries', 'url' => ['index']];
+$this->title = $name = $model->fisrt_name . " " . $model->last_name;
+if (isset($record_id)) {
+    $this->params['breadcrumbs'][] = ['label' => 'Criminal Record - '.$record_id, 'url' => ['criminalrecord/view?record_id='.$record_id]];
+} else {
+    $this->params['breadcrumbs'][] = ['label' => 'Registries', 'url' => ['index']];
+}
 $this->params['breadcrumbs'][] = $this->title;
+
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="registry-view">
@@ -38,5 +47,38 @@ $this->params['breadcrumbs'][] = $this->title;
             'phone',
         ],
     ]) ?>
+
+    <br>
+    <h2> Known Addresses</h2>
+    <br>
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'label' => "Address",
+                'value' => function ($model) {
+                    return $model->address_details . ", " . $model->address_city . ", " . $model->address_state;
+                }
+            ],
+            [
+                'attribute' => 'address_type',
+                'label' => "Type",
+                'value' => function ($model) {
+                    return $model->address_type == 1 ? "PERMANENT" : "TEMPORARY";
+                }
+            ],
+            'address_start_date',
+            'address_end_date',
+            [
+                'class' => ActionColumn::className(),
+                'urlCreator' => function ($action, Address $model, $key, $index, $column) {
+                    return Url::toRoute(["/address/view", 'address_id' => $model->address_id, 'address_person_id' => $model->address_person_id]);
+                 }
+            ],
+        ],
+    ]); ?>
+
+    <?= Html::a('Add Address', ['address/create', 'address_person_id' => $model->person_id], ['class' => 'btn btn-primary']) ?>
 
 </div>

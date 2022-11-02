@@ -38,6 +38,7 @@ class AddressController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = "sidenav";
         $searchModel = new AddressSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -56,6 +57,7 @@ class AddressController extends Controller
      */
     public function actionView($address_id, $address_person_id)
     {
+        $this->layout = "sidenav";
         return $this->render('view', [
             'model' => $this->findModel($address_id, $address_person_id),
         ]);
@@ -66,13 +68,14 @@ class AddressController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    public function actionCreate($address_person_id)
     {
+        $this->layout = "sidenav";
         $model = new Address();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'address_id' => $model->address_id, 'address_person_id' => $model->address_person_id]);
+                return $this->redirect(['registry/view', 'person_id' => $model->address_person_id]);
             }
         } else {
             $model->loadDefaultValues();
@@ -80,6 +83,7 @@ class AddressController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'address_person_id' => $address_person_id,
         ]);
     }
 
@@ -93,6 +97,7 @@ class AddressController extends Controller
      */
     public function actionUpdate($address_id, $address_person_id)
     {
+        $this->layout = "sidenav";
         $model = $this->findModel($address_id, $address_person_id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
@@ -114,6 +119,7 @@ class AddressController extends Controller
      */
     public function actionDelete($address_id, $address_person_id)
     {
+        $this->layout = "sidenav";
         $this->findModel($address_id, $address_person_id)->delete();
 
         return $this->redirect(['index']);

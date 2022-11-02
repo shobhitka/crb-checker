@@ -2,12 +2,15 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use app\models\Registry;
 
 /** @var yii\web\View $this */
 /** @var app\models\Address $model */
 
 $this->title = $model->address_id;
-$this->params['breadcrumbs'][] = ['label' => 'Addresses', 'url' => ['index']];
+$person = Registry::find()->where(["=", 'person_id', $model->address_person_id])->one();
+$name = $person->fisrt_name . " " . $person->last_name;
+$this->params['breadcrumbs'][] = ['label' => $name, 'url' => ['registry/view?person_id='.$model->address_person_id."&record_id=''"]];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -32,11 +35,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'address_id',
             'address_start_date',
             'address_end_date',
-            'address_type',
+            [
+                'attribute' => 'address_type',
+                'value' => function ($model) {
+                    return $model->address_type == 1 ? "PERMENANT" : "TEMPORARY";
+                }
+            ],
             'address_city',
             'address_state',
             'address_details',
-            'address_person_id',
         ],
     ]) ?>
 
