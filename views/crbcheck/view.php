@@ -46,4 +46,6 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <?= Html::a('Execute Query', ['crbcheck/execute', 'query_id' => $model->quiery_id], ['class' => 'btn btn-primary']) ?>
+
 </div>

@@ -8,6 +8,11 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\VarDumper;
+use app\models\Registry;
+use app\models\CriminalRecord;
+use app\models\CriminalRecordSearch;
+use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
 
 /**
  * CrbcheckController implements the CRUD actions for CrbCheck model.
@@ -146,5 +151,30 @@ class CrbcheckController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionExecute($query_id)
+    {
+        $query = CrbCheck::find()->where(['=', 'quiery_id', $query_id])->one();
+        $users = Registry::find()->where(['=', 'fisrt_name', $query->search_firstname])->all();
+                
+        $found = array();
+        foreach ($users as $user) {
+            $records = CriminalRecord::find()->where(['=', 'record_person_id', $user->person_id])->all();
+            foreach($records as $record) {
+                $records = CriminalRecord::find()->where(['=', 'record_person_id', $user->person_id])->all();
+                foreach($records as $record) {
+                    array_push($found, $record);
+                }
+            }
+        }
+
+        $provider = new ArrayDataProvider([
+            'allModels' => $found,
+        ]);
+
+        return $this->render('records', [
+            'dataProvider' => $provider,
+        ]);
     }
 }
