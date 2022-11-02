@@ -102,4 +102,22 @@ class CriminalRecord extends \yii\db\ActiveRecord
     {
         return new CriminalRecordQuery(get_called_class());
     }
+
+    public function getCriminalName()
+    {
+        $criminal = Registry::find()->where(['=', 'person_id', $this->record_person_id])->one();
+        return $criminal->fisrt_name . " " . $criminal->last_name;
+    }
+
+    public function getCriminalOffense()
+    {
+        $criminal = Offenses::find()->where(['=', 'offense_id', $this->record_offense_id])->one();
+        return $criminal->offense_name;
+    }
+
+    public function getCriminalConviction()
+    {
+        $criminal = Convictions::find()->where(['=', 'conviction_id', $this->record_conviction_id])->one();
+        return $criminal->conviction_name;
+    }
 }

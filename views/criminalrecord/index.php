@@ -28,15 +28,28 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
-            'record_id',
+            [
+                'attribute' => 'record_person_id',
+                'label' => 'Name',
+                'value' => function($model) {
+                    return $model->getCriminalName();
+                }
+            ],
+            [
+                'attribute' => 'record_offense_id',
+                'label' => 'Offense',
+                'value' => function($model) {
+                    return $model->getCriminalOffense();
+                }
+            ],
+            [
+                'attribute' => 'record_conviction_id',
+                'label' => 'Conviction',
+                'value' => function($model) {
+                    return $model->getCriminalConviction();
+                }
+            ],
             'conviction_date',
-            'conviction_place',
-            'curr_status',
-            //'alert_flag',
-            //'record_offense_id',
-            //'record_conviction_id',
-            //'record_person_id',
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, CriminalRecord $model, $key, $index, $column) {

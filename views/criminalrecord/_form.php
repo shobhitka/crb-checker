@@ -14,7 +14,7 @@ use app\models\Offenses;
 <div class="criminal-record-form">
     
     <?php $form = ActiveForm::begin(); ?>
-    
+    <?php if (isset($registry)) { ?>
     <br><br>
     <h2>Person Details</h2>
     <div class="row">
@@ -47,7 +47,9 @@ use app\models\Offenses;
         </div>
     </div>
     <br>
+    <?php } ?>
 
+    <?php if (isset($registry)) { ?>
     <h2>Address Details</h2>
     <div class="row">
         <div class='col-md-3'>
@@ -87,7 +89,7 @@ use app\models\Offenses;
         </div>
     </div>
     <br>
-
+    <?php } ?>
     <h2>Conviction Details</h2>
     <div class="row">
         <div class='col-md-3'>

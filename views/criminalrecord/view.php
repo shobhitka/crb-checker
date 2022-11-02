@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /** @var yii\web\View $this */
 /** @var app\models\CriminalRecord $model */
 
-$this->title = $model->record_id;
+$this->title = "Record ID: " . $model->record_id;
 $this->params['breadcrumbs'][] = ['label' => 'Criminal Records', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -32,11 +32,44 @@ $this->params['breadcrumbs'][] = $this->title;
             'record_id',
             'conviction_date',
             'conviction_place',
-            'curr_status',
-            'alert_flag',
-            'record_offense_id',
-            'record_conviction_id',
-            'record_person_id',
+            [
+                'attribute' => 'curr_status',
+                'value' => function($model) {
+                    if ($model->curr_status == 1)
+                        return "SERVED";
+                    else if ($model->curr_status == 2)
+                        return "ON BAIL";
+                    else
+                        return "IMPRISIONED";
+                }
+            ],
+            [
+                'attribute' => 'alert_flag',
+                'value' => function($model) {
+                    return $model->alert_flag == 1 ? "YES" : "NO";
+                }
+            ],
+            [
+                'attribute' => 'record_person_id',
+                'label' => 'Name',
+                'value' => function($model) {
+                    return $model->getCriminalName();
+                }
+            ],
+            [
+                'attribute' => 'record_offense_id',
+                'label' => 'Offense',
+                'value' => function($model) {
+                    return $model->getCriminalOffense();
+                }
+            ],
+            [
+                'attribute' => 'record_conviction_id',
+                'label' => 'Conviction',
+                'value' => function($model) {
+                    return $model->getCriminalConviction();
+                }
+            ],
         ],
     ]) ?>
 
