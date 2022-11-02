@@ -37,12 +37,10 @@ class CriminalRecord extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['record_num', 'conviction_date', 'record_offense_id', 'record_conviction_id', 'record_person_id'], 'required'],
+            [['conviction_date', 'record_offense_id', 'record_conviction_id', 'record_person_id'], 'required'],
             [['conviction_date'], 'safe'],
             [['curr_status', 'alert_flag', 'record_offense_id', 'record_conviction_id', 'record_person_id'], 'integer'],
-            [['record_num'], 'string', 'max' => 32],
             [['conviction_place'], 'string', 'max' => 128],
-            [['record_num'], 'unique'],
             [['record_offense_id'], 'exist', 'skipOnError' => true, 'targetClass' => Offenses::class, 'targetAttribute' => ['record_offense_id' => 'offense_id']],
             [['record_conviction_id'], 'exist', 'skipOnError' => true, 'targetClass' => Convictions::class, 'targetAttribute' => ['record_conviction_id' => 'conviction_id']],
             [['record_person_id'], 'exist', 'skipOnError' => true, 'targetClass' => Registry::class, 'targetAttribute' => ['record_person_id' => 'person_id']],
@@ -56,7 +54,6 @@ class CriminalRecord extends \yii\db\ActiveRecord
     {
         return [
             'record_id' => 'Record ID',
-            'record_num' => 'Record Num',
             'conviction_date' => 'Conviction Date',
             'conviction_place' => 'Conviction Place',
             'curr_status' => 'Curr Status',

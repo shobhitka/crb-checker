@@ -18,7 +18,7 @@ class CriminalRecordSearch extends CriminalRecord
     {
         return [
             [['record_id', 'curr_status', 'alert_flag', 'record_offense_id', 'record_conviction_id', 'record_person_id'], 'integer'],
-            [['record_num', 'conviction_date', 'conviction_place'], 'safe'],
+            [['conviction_date', 'conviction_place'], 'safe'],
         ];
     }
 
@@ -67,8 +67,7 @@ class CriminalRecordSearch extends CriminalRecord
             'record_person_id' => $this->record_person_id,
         ]);
 
-        $query->andFilterWhere(['like', 'record_num', $this->record_num])
-            ->andFilterWhere(['like', 'conviction_place', $this->conviction_place]);
+        $query->andFilterWhere(['like', 'conviction_place', $this->conviction_place]);
 
         return $dataProvider;
     }

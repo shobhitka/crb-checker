@@ -9,6 +9,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Registry;
 use app\models\Address;
+use yii\helpers\VarDumper;
 
 /**
  * CriminalrecordController implements the CRUD actions for CriminalRecord model.
@@ -80,8 +81,20 @@ class CriminalrecordController extends Controller
         $address = new Address();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'record_id' => $model->record_id, 'record_offense_id' => $model->record_offense_id, 'record_conviction_id' => $model->record_conviction_id, 'record_person_id' => $model->record_person_id]);
+            if ($model->load($this->request->post()) && $registry->load($this->request->post()) && $address->load($this->request->post())) {
+                var_dump($registry->attributes);
+                // save the person details first to generate person_id
+                if ($registry->save()) {
+                    // save the address
+                    $address->address_person_id = $registry->person_id;
+                    if ($address->save()) {
+                        // save the record
+                        $model->record_person_id = $registry->person_id;
+                        if ($model->save()) {
+                            return $this->redirect(['view', 'record_id' => $model->record_id, 'record_offense_id' => $model->record_offense_id, 'record_conviction_id' => $model->record_conviction_id, 'record_person_id' => $model->record_person_id]);
+                        }
+                    }
+                }
             }
         } else {
             $model->loadDefaultValues();

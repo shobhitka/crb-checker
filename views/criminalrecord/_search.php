@@ -17,8 +17,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'record_id') ?>
 
-    <?= $form->field($model, 'record_num') ?>
-
     <?= $form->field($model, 'conviction_date') ?>
 
     <?= $form->field($model, 'conviction_place') ?>

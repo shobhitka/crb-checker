@@ -34,8 +34,7 @@ class Registry extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['person_id', 'fisrt_name', 'last_name'], 'required'],
-            [['person_id'], 'integer'],
+            [['fisrt_name', 'last_name'], 'required'],
             [['dob'], 'safe'],
             [['email'], 'string', 'max' => 64],
             [['fisrt_name', 'middle_name', 'last_name', 'phone'], 'string', 'max' => 32],
