@@ -38,6 +38,7 @@ class CriminalrecordController extends Controller
      */
     public function actionIndex()
     {
+        $this->layout = "sidenav";
         $searchModel = new CriminalRecordSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
@@ -58,6 +59,7 @@ class CriminalrecordController extends Controller
      */
     public function actionView($record_id, $record_offense_id, $record_conviction_id, $record_person_id)
     {
+        $this->layout = "sidenav";
         return $this->render('view', [
             'model' => $this->findModel($record_id, $record_offense_id, $record_conviction_id, $record_person_id),
         ]);
@@ -70,6 +72,7 @@ class CriminalrecordController extends Controller
      */
     public function actionCreate()
     {
+        $this->layout = "sidenav";
         $model = new CriminalRecord();
 
         if ($this->request->isPost) {
@@ -97,6 +100,7 @@ class CriminalrecordController extends Controller
      */
     public function actionUpdate($record_id, $record_offense_id, $record_conviction_id, $record_person_id)
     {
+        $this->layout = "sidenav";
         $model = $this->findModel($record_id, $record_offense_id, $record_conviction_id, $record_person_id);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
@@ -120,6 +124,7 @@ class CriminalrecordController extends Controller
      */
     public function actionDelete($record_id, $record_offense_id, $record_conviction_id, $record_person_id)
     {
+        $this->layout = "sidenav";
         $this->findModel($record_id, $record_offense_id, $record_conviction_id, $record_person_id)->delete();
 
         return $this->redirect(['index']);

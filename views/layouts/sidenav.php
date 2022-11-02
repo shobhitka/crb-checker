@@ -20,6 +20,8 @@
                         ['label' => 'Convictions', 'icon' => 'search', 'url' => Url::to(['/convictions/index', 'type'=>$type]), 'active' => ($item == 'zones')],
                         ['label' => 'Offenses', 'icon' => 'user', 'url' => Url::to(['/offenses/index', 'type'=>$type]), 'active' => ($item == 'boys')],
                         ['label' => 'Query Types', 'icon' => 'leaf', 'url' => Url::to(['/querytype/index', 'type'=>$type]), 'active' => ($item == 'plans')],
+                        ['label' => 'People Registry', 'icon' => 'leaf', 'url' => Url::to(['/registry/index', 'type'=>$type]), 'active' => ($item == 'plans')],
+                        ['label' => 'Criminal Records', 'icon' => 'leaf', 'url' => Url::to(['/criminalrecord/index', 'type'=>$type]), 'active' => ($item == 'plans')],
                     ],
                 ]);
 			?>
