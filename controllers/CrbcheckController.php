@@ -13,6 +13,7 @@ use app\models\CriminalRecord;
 use app\models\CriminalRecordSearch;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
+use yii\db\Query;
 
 /**
  * CrbcheckController implements the CRUD actions for CrbCheck model.
@@ -156,16 +157,47 @@ class CrbcheckController extends Controller
     public function actionExecute($query_id)
     {
         $query = CrbCheck::find()->where(['=', 'quiery_id', $query_id])->one();
-        $users = Registry::find()->where(['=', 'fisrt_name', $query->search_firstname])->all();
+        $q1 = new Query();
+        $q1->select('*')
+            ->from('registry')
+            ->where(['=', 'fisrt_name', $query->search_firstname])
+            ->andWhere(['=', 'last_name', $query->search_lastname]);
+
+        if ($query->dob != NULL)
+            $q1->andWhere(['=', 'dob', $query->dob]);
+
+        $users = $q1->all();
                 
         $found = array();
         foreach ($users as $user) {
-            $records = CriminalRecord::find()->where(['=', 'record_person_id', $user->person_id])->all();
+            var_dump($user);
+            // Now build the query on what all is given iniinitial query
+            $q2 = new Query();
+            $q2->select('*')
+                ->from('criminal_record')
+                ->where(['=', 'record_person_id', $user['person_id']]);
+
+            if ($query->query_type_id == 3) // FLAGGED
+                $q2->andWhere(['=', 'alert_flag', 1]);
+
+            if ($query->start_date != NULL)
+                $q2->andWhere(['>=', 'conviction_date', $query->start_date]);
+
+            if ($query->end_date != NULL)
+                $q2->andWhere(['<=', 'conviction_date', $query->end_date]);
+
+            $records = $q2->all();
             foreach($records as $record) {
-                $records = CriminalRecord::find()->where(['=', 'record_person_id', $user->person_id])->all();
-                foreach($records as $record) {
-                    array_push($found, $record);
-                }
+                $model = new CriminalRecord();
+                $model->record_id = $record['record_id'];
+                $model->conviction_date = $record['conviction_date'];
+                $model->conviction_place = $record['conviction_place'];
+                $model->curr_status = $record['curr_status'];
+                $model->alert_flag = $record['alert_flag'];
+                $model->record_offense_id = $record['record_offense_id'];
+                $model->record_conviction_id = $record['record_conviction_id'];
+                $model->record_person_id = $record['record_person_id'];
+                array_push($found, $model);
             }
         }
 
