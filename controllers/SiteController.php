@@ -72,12 +72,12 @@ class SiteController extends Controller
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
-			return $this->redirect(array('crbcheck/create'));
+			return $this->redirect(array('crbcheck/index'));
         }
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-			return $this->redirect(array('crbcheck/create'));
+			return $this->redirect(array('crbcheck/index'));
         }
 
         $model->password = '';
