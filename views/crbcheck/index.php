@@ -34,9 +34,12 @@ $this->params['breadcrumbs'][] = $this->title;
           //  'search_middlename',
             'search_lastname',
             //'end_date',
-            //'dob',
+            'dob',
             //'search_city',
-            'search_timestamp',
+            [
+                'attribute' => 'search_timestamp',
+                'label' => 'Creation Timestamp',
+            ],
             //'query_type_id',
             //'user_user_id',
             [

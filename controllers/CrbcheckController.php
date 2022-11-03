@@ -84,7 +84,7 @@ class CrbcheckController extends Controller
                 $model->user_user_id = Yii::$app->user->identity->getId();
                 $model->search_timestamp = date("Y-m-d H:i:s");
                 if ($model->save()) {
-                    return $this->redirect(['view', 'quiery_id' => $model->quiery_id, 'query_type_id' => $model->query_type_id, 'user_user_id' => $model->user_user_id]);
+                    return $this->redirect(['execute', 'query_id' => $model->quiery_id]);
                 } else {
                     VarDumper::dump($model);
                 }
