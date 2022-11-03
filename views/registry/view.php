@@ -18,6 +18,11 @@ if (isset($record_id)) {
 }
 $this->params['breadcrumbs'][] = $this->title;
 
+if (Yii::$app->user->identity->isAdmin())
+    $template = '{view} {update} {delete}';
+else
+    $template = '{view}';
+
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="registry-view">
@@ -74,6 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'address_end_date',
             [
                 'class' => ActionColumn::className(),
+                'template' => $template,
                 'urlCreator' => function ($action, Address $model, $key, $index, $column) {
                     return Url::toRoute(["/address/view", 'address_id' => $model->address_id, 'address_person_id' => $model->address_person_id]);
                  }

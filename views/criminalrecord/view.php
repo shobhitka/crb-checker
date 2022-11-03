@@ -8,7 +8,8 @@ use yii\helpers\Url;
 /** @var app\models\CriminalRecord $model */
 
 $this->title = "Record ID: " . $model->record_id;
-$this->params['breadcrumbs'][] = ['label' => 'Criminal Records', 'url' => ['index']];
+if (Yii::$app->user->identity->isAdmin())
+    $this->params['breadcrumbs'][] = ['label' => 'Criminal Records', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
