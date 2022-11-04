@@ -7,7 +7,8 @@ use app\models\RegistrySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\AddressSearch;
+use app\models\Address;
+use yii\data\ActiveDataProvider;
 use yii;
 
 /**
@@ -63,13 +64,14 @@ class RegistryController extends Controller
         if (Yii::$app->user->identity->isAdmin())$this->layout = "sidenav";
         $record_id = 2;
 
-        $searchModel = new AddressSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $query = Address::find()->where(['=', 'address_person_id', $person_id]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
 
         return $this->render('view', [
             'model' => $this->findModel($person_id),
             'dataProvider' => $dataProvider,
-            'searchModel' => $searchModel,
             'record_id' => $record_id,
         ]);
     }
