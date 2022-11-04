@@ -88,6 +88,48 @@ else
     ]); ?>
 
     <?php if (Yii::$app->user->identity->isAdmin()) { ?>
-    <?= Html::a('Add Address', ['address/create', 'address_person_id' => $model->person_id], ['class' => 'btn btn-primary']) ?>
+    <?= Html::a('Add New Address', ['address/create', 'address_person_id' => $model->person_id], ['class' => 'btn btn-primary']) ?>
+    <?php } ?>
+
+    <br><br>
+    <h2> Criminal Records</h2>
+    <br>
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider1,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'attribute' => 'record_person_id',
+                'label' => 'Name',
+                'value' => function($model) {
+                    return $model->getCriminalName();
+                }
+            ],
+            [
+                'attribute' => 'record_offense_id',
+                'label' => 'Offense',
+                'value' => function($model) {
+                    return $model->getCriminalOffense();
+                }
+            ],
+            [
+                'attribute' => 'record_conviction_id',
+                'label' => 'Conviction',
+                'value' => function($model) {
+                    return $model->getCriminalConviction();
+                }
+            ],
+            'conviction_date',
+            [
+                'class' => ActionColumn::className(),
+                'urlCreator' => function ($action, $model, $key, $index, $column) {
+                    return Url::toRoute([$action, 'record_id' => $model->record_id, 'record_offense_id' => $model->record_offense_id, 'record_conviction_id' => $model->record_conviction_id, 'record_person_id' => $model->record_person_id]);
+                 }
+            ],
+        ],
+    ]); ?>
+
+    <?php if (Yii::$app->user->identity->isAdmin()) { ?>
+    <?= Html::a('Add New Record', ['criminalrecord/createnew', 'address_person_id' => $model->person_id], ['class' => 'btn btn-primary']) ?>
     <?php } ?>
 </div>

@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Address;
+use app\models\CriminalRecord;
 use yii\data\ActiveDataProvider;
 use yii;
 
@@ -69,9 +70,15 @@ class RegistryController extends Controller
             'query' => $query,
         ]);
 
+        $query1 = CriminalRecord::find()->where(['=', 'record_person_id', $person_id]);
+        $dataProvider1 = new ActiveDataProvider([
+            'query' => $query1,
+        ]);
+
         return $this->render('view', [
             'model' => $this->findModel($person_id),
             'dataProvider' => $dataProvider,
+            'dataProvider1' => $dataProvider1,
             'record_id' => $record_id,
         ]);
     }

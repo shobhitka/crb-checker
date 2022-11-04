@@ -45,7 +45,7 @@ $this->title = 'CRB Checker';
 			<?php echo Html::img('@web/images/relational-schema.png', ['alt' => 'Relational Schema','width=>10','height=>10']) ?>
         </div><br><br>
         <div class="row">
-			<h2 align="center">ER Diagrma</h2>
+			<h2 align="center">ER Diagram</h2>
 			<?php echo Html::img('@web/images/ER-Diagram-Final.png', ['alt' => 'ER Diagram','width=>10','height=>10']) ?>
 		</div>
 
