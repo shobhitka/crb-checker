@@ -49,7 +49,7 @@ use app\models\Offenses;
     <br>
     <?php } ?>
 
-    <?php if (isset($registry)) { ?>
+    <?php if (isset($address)) { ?>
     <h2>Address Details</h2>
     <div class="row">
         <div class='col-md-3'>
@@ -89,8 +89,8 @@ use app\models\Offenses;
         </div>
     </div>
     <br>
-    <?php } ?>
     <h2>Conviction Details</h2>
+    <?php } ?>
     <div class="row">
         <div class='col-md-3'>
             <?= $form->field($model, 'conviction_date')->widget(DatePicker::classname(), [

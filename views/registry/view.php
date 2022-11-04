@@ -5,6 +5,7 @@ use yii\widgets\DetailView;
 use yii\grid\GridView;
 use yii\grid\ActionColumn;
 use app\models\Address;
+use app\models\CriminalRecord;
 use yii\helpers\Url;
 
 /** @var yii\web\View $this */
@@ -122,14 +123,14 @@ else
             'conviction_date',
             [
                 'class' => ActionColumn::className(),
-                'urlCreator' => function ($action, $model, $key, $index, $column) {
-                    return Url::toRoute([$action, 'record_id' => $model->record_id, 'record_offense_id' => $model->record_offense_id, 'record_conviction_id' => $model->record_conviction_id, 'record_person_id' => $model->record_person_id]);
+                'urlCreator' => function ($action, CriminalRecord $model, $key, $index, $column) {
+                    return Url::toRoute(['criminalrecord/view', 'record_id' => $model->record_id, 'record_offense_id' => $model->record_offense_id, 'record_conviction_id' => $model->record_conviction_id, 'record_person_id' => $model->record_person_id]);
                  }
             ],
         ],
     ]); ?>
 
     <?php if (Yii::$app->user->identity->isAdmin()) { ?>
-    <?= Html::a('Add New Record', ['criminalrecord/createnew', 'address_person_id' => $model->person_id], ['class' => 'btn btn-primary']) ?>
+    <?= Html::a('Add New Record', ['criminalrecord/createnew', 'person_id' => $model->person_id], ['class' => 'btn btn-primary']) ?>
     <?php } ?>
 </div>

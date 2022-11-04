@@ -85,7 +85,6 @@ class CriminalrecordController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $registry->load($this->request->post()) && $address->load($this->request->post())) {
-                var_dump($registry->attributes);
                 // save the person details first to generate person_id
                 if ($registry->save()) {
                     // save the address
@@ -107,6 +106,27 @@ class CriminalrecordController extends Controller
             'model' => $model,
             'registry' => $registry,
             'address' => $address,
+        ]);
+    }
+
+    public function actionCreatenew($person_id)
+    {
+        $this->layout = "sidenav";
+        $model = new CriminalRecord();
+
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post())) {
+                $model->record_person_id = $person_id;
+                if ($model->save())
+                    return $this->redirect(['registry/view', 'person_id' => $model->record_person_id, 'record_id' => $model->record_id]);
+            }
+        } else {
+            $model->loadDefaultValues();
+        }
+
+        return $this->render('createnew', [
+            'model' => $model,
+            'person_id' => $person_id,
         ]);
     }
 

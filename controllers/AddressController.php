@@ -78,7 +78,7 @@ class AddressController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['registry/view', 'person_id' => $model->address_person_id]);
+                return $this->redirect(['registry/view', 'person_id' => $model->address_person_id, 'record_id' => '']);
             }
         } else {
             $model->loadDefaultValues();
