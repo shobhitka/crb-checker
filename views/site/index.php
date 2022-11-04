@@ -9,7 +9,7 @@ $this->title = 'CRB Checker';
 <div class="site-index">
 
     <div class="jumbotron text-center bg-transparent">
-		<h1 class="display-8">Welcome to the CRB Checker Applicatioon.</h1>
+		<h1 class="display-8">Welcome to the CRB Checker Application</h1>
 		<?php
 			if (Yii::$app->user->isGuest)
 				$button_lbl = "Login to the Application";
